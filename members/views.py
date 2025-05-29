@@ -13,6 +13,9 @@ from notifications.config import get_notification_count
 from django.db.models.signals import post_save
 from notifications.config import my_handler
 from django.contrib import messages
+from .models import Attendance
+from .forms import AttendanceForm
+from django.shortcuts import get_object_or_404, redirect, render
 
 def model_save(model):
     post_save.disconnect(my_handler, sender=Member)
@@ -378,3 +381,37 @@ def update_member(request, id):
                             'subs_end_today_count': get_notification_count(),
                         }
                     )
+
+
+def attendance_view(request):
+    filter_date = request.GET.get('filter_date')
+    if filter_date:
+        attendance_records = Attendance.objects.filter(date=filter_date).order_by('-date')
+    else:
+        attendance_records = Attendance.objects.all().order_by('-date')
+
+    if request.method == 'POST':
+        form = AttendanceForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = AttendanceForm()
+
+    return render(request, 'attendance.html', {'form': form, 'attendance_records': attendance_records, 'filter_date': filter_date})
+
+
+def edit_attendance(request, record_id):
+    record = get_object_or_404(Attendance, id=record_id)
+    if request.method == 'POST':
+        form = AttendanceForm(request.POST, instance=record)
+        if form.is_valid():
+            form.save()
+            return redirect('attendance')  # Redirect back to the attendance page
+    else:
+        form = AttendanceForm(instance=record)
+    return render(request, 'edit_attendance.html', {'form': form, 'record': record})
+
+def delete_attendance(request, record_id):
+    record = get_object_or_404(Attendance, id=record_id)
+    record.delete()
+    return redirect('attendance')

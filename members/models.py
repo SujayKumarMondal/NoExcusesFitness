@@ -2,6 +2,7 @@ from django.db import models
 from django.forms import ModelForm
 from django import forms
 import datetime
+from django.contrib.auth.models import User
 
 SUBSCRIPTION_TYPE_CHOICES = (
     ('gym', 'Gym'),
@@ -165,3 +166,11 @@ class UpdateMemberInfoForm(forms.Form):
     last_name      = forms.CharField(max_length=50)
     photo          = forms.FileField(label='Update Photo', required=False)
     dob            = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker        form-control', 'type': 'date'}),)
+
+class Attendance(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField()
+    status = models.CharField(max_length=10, choices=[('Present', 'Present'), ('Absent', 'Absent')])
+
+    def __str__(self):
+        return f"{self.user.username} - {self.date} - {self.status}"
