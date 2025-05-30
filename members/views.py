@@ -15,6 +15,7 @@ from notifications.config import my_handler
 from django.contrib import messages
 from .models import Attendance
 from .forms import AttendanceForm
+from .models import Attendance 
 from django.shortcuts import get_object_or_404, redirect, render
 
 def model_save(model):
@@ -74,32 +75,36 @@ def view_member(request):
     return render(request, 'view_member.html', context)
 
 def add_member(request):
-    view_all = Member.objects.all()
-    success = 0
+    success = None
     member = None
     if request.method == 'POST':
         form = AddMemberForm(request.POST, request.FILES)
         if form.is_valid():
+            # Save the new member
             temp = form.save(commit=False)
             temp.first_name = request.POST.get('first_name').capitalize()
             temp.last_name = request.POST.get('last_name').capitalize()
             temp.registration_upto = parser.parse(request.POST.get('registration_date')) + delta.relativedelta(months=int(request.POST.get('subscription_period')))
+            
+            # Handle fee status
             if request.POST.get('fee_status') == 'pending':
                 temp.notification = 1
-
+            
+            # Save the member object
             model_save(temp)
             success = 'Successfully Added Member'
 
             # Add payments if payment is 'paid'
             if temp.fee_status == 'paid':
                 payments = Payments(
-                                    user=temp,
-                                    payment_date=temp.registration_date,
-                                    payment_period=temp.subscription_period,
-                                    payment_amount=temp.amount)
+                    user=temp,
+                    payment_date=temp.registration_date,
+                    payment_period=temp.subscription_period,
+                    payment_amount=temp.amount
+                )
                 payments.save()
 
-            form = AddMemberForm()
+            # Fetch the last added member
             member = Member.objects.last()
 
         context = {
@@ -116,6 +121,7 @@ def add_member(request):
             'subs_end_today_count': get_notification_count(),
         }
     return render(request, 'add_member.html', context)
+
 
 def search_member(request):
     if request.method == 'POST':
@@ -384,31 +390,70 @@ def update_member(request, id):
 
 
 def attendance_view(request):
-    filter_date = request.GET.get('filter_date')
-    if filter_date:
-        attendance_records = Attendance.objects.filter(date=filter_date).order_by('-date')
-    else:
-        attendance_records = Attendance.objects.all().order_by('-date')
-
     if request.method == 'POST':
         form = AttendanceForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save()  # Save the attendance record
+            return redirect('attendance')
     else:
         form = AttendanceForm()
 
-    return render(request, 'attendance.html', {'form': form, 'attendance_records': attendance_records, 'filter_date': filter_date})
+    # Filter attendance records by date if filter_date is provided
+    filter_date = request.GET.get('filter_date')
+    if filter_date:
+        attendance_records = Attendance.objects.filter(date=filter_date)
+    else:
+        attendance_records = Attendance.objects.all()
+
+    context = {
+        'form': form,
+        'attendance_records': attendance_records,
+        'filter_date': filter_date,
+    }
+    return render(request, 'attendance.html', context)
 
 
-def edit_attendance(request, record_id):
-    record = get_object_or_404(Attendance, id=record_id)
+# def edit_attendance(request, id):
+#     attendance_record = get_object_or_404(Attendance, id=id)
+
+#     if request.method == 'POST':
+#         form = AttendanceForm(request.POST, instance=attendance_record)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('attendance')
+#     else:
+#         form = AttendanceForm(instance=attendance_record)
+
+#     context = {
+#         'form': form,
+#         'attendance_record': attendance_record,
+#     }
+#     return render(request, 'edit_attendance.html', context)
+
+# def delete_attendance(request, record_id):
+#     print(f"Record ID: {record_id}")  # Debugging statement
+#     record = get_object_or_404(Attendance, id=record_id)
+#     record.delete()
+#     return redirect('attendance')
+
+
+def edit_attendance(request, id):
+    # Fetch the attendance record
+    record = get_object_or_404(Attendance, id=id)
+    
     if request.method == 'POST':
+        # Bind the form with POST data and the existing record
         form = AttendanceForm(request.POST, instance=record)
         if form.is_valid():
+            # Save the updated record
             form.save()
-            return redirect('attendance')  # Redirect back to the attendance page
+            # Redirect to the attendance page
+            return redirect('attendance')  # Replace 'attendance' with the correct URL name
     else:
+        # Initialize the form with the existing record
         form = AttendanceForm(instance=record)
+    
+    # Render the edit template with the form and record
     return render(request, 'edit_attendance.html', {'form': form, 'record': record})
 
 def delete_attendance(request, record_id):
