@@ -168,9 +168,9 @@ class UpdateMemberInfoForm(forms.Form):
     dob            = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker        form-control', 'type': 'date'}),)
 
 class Attendance(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, default=1)
     date = models.DateField()
     status = models.CharField(max_length=10, choices=[('Present', 'Present'), ('Absent', 'Absent')])
 
     def __str__(self):
-        return f"{self.user.username} - {self.date} - {self.status}"
+        return f"{self.member.first_name} {self.member.last_name} - {self.date} - {self.status}"

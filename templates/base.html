@@ -30,7 +30,7 @@
             <a class="nav-link" href="{% url 'members'%}">New Admission<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item  {% if request.resolver_match.url_name == 'view_member' %} active {% endif %}">
-            <a class="nav-link" href="{% url 'view_member'%}">View All Users</a>
+            <a class="nav-link" href="{% url 'view_member'%}">View All Members</a>
           </li>
           <li class="nav-item {% if request.resolver_match.url_name == 'attendance' %} active {% endif %}">
             <a class="nav-link" href="{% url 'attendance' %}">Attendance</a>
