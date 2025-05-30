@@ -23,42 +23,45 @@ def reports(request):
     if request.method == 'POST':
         form = GenerateReportForm(request.POST)
         if form.is_valid():
-            if request.POST.get('month') and request.POST.get('year') and request.POST.get('batch'):
+            if 'generate_all' in request.POST:  # Check if "Generate Report" for all members is clicked
+                users = Member.objects.all()  # Fetch all members
+            elif request.POST.get('month') and request.POST.get('year') and request.POST.get('batch'):
                 query = Q(
                     registration_date__month=request.POST.get('month'),
                     registration_date__year=request.POST.get('year'),
                     batch=request.POST.get('batch')
                 )
+                users = Member.objects.filter(query)
             elif request.POST.get('month') and request.POST.get('year'):
                 query = Q(
                     registration_date__month=request.POST.get('month'),
                     registration_date__year=request.POST.get('year')
                 )
+                users = Member.objects.filter(query)
             elif request.POST.get('month') and request.POST.get('batch'):
                 query = Q(
                     registration_date__month=request.POST.get('month'),
                     batch=request.POST.get('batch')
                 )
+                users = Member.objects.filter(query)
             elif request.POST.get('year') and request.POST.get('batch'):
                 query = Q(
                     registration_date__year=request.POST.get('year'),
                     batch=request.POST.get('batch')
                 )
+                users = Member.objects.filter(query)
             else:
                 query = Q(
                     registration_date__year=request.POST.get('year'),
                 )
-            users = Member.objects.filter(query)
-            # aggregate_amount = 0
-            # for member in users:
-            #     aggregate_amount += member.amount
+                users = Member.objects.filter(query)
+
             if 'export' in request.POST:
                 return export_all(users)
+            
             context = {
                 'users': users,
                 'form': form,
-                # 'aggregate_amount': aggregate_amount,
-                # 'students_registered': len(reg_users),
                 'subs_end_today_count': get_notification_count(),
             }
             return render(request, 'reports.html', context)
