@@ -460,3 +460,6 @@ def delete_attendance(request, record_id):
     record = get_object_or_404(Attendance, id=record_id)
     record.delete()
     return redirect('attendance')
+
+def trainer(request):
+    return render(request, 'trainer.html')

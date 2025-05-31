@@ -41,6 +41,9 @@
           <li class="nav-item  {% if request.resolver_match.url_name == 'notifications' %} active {% endif %}">
             <a class="nav-link" href="{% url 'notifications'%}">Notifications <span class="badge badge-success">{{ subs_end_today_count }}</span></a>
           </li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'trainer' %} active {% endif %}">
+            <a class="nav-link" href="{% url 'trainer' %}">Trainer</a>
+          </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
