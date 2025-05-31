@@ -6,10 +6,10 @@ import datetime
 class MemberTestCase(TestCase):
     def setUp(self):
         Member.objects.create(
-                                first_name='Omkar',
-                                last_name='Pathak',
-                                mobile_number='80879966340',
-                                email='omkarpathak27@gmail.com',
+                                first_name='Sujay',
+                                last_name='Mondal',
+                                mobile_number='6461567890',
+                                email='sujay@gmail.com',
                                 registration_date=datetime.datetime.now(),
                                 subscription_type='gym',
                                 subscription_period='1',
@@ -19,5 +19,5 @@ class MemberTestCase(TestCase):
                             )
 
     def test_member(self):
-        check = Member.objects.get(first_name='Omkar')
+        check = Member.objects.get(first_name='Sujay')
         print(check)

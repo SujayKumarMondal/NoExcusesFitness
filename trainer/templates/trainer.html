@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Trainers{% endblock %}
+
+{% block content %}
+<style>
+    .shift-more-left {
+        margin-left: -150px;
+    }
+
+    /* Smaller input/select width for Add Trainer form */
+    form.add-trainer-form input,
+    form.add-trainer-form select {
+        max-width: 400px;
+    }
+
+    /* Full-width table with wrapping */
+    .table {
+        width: 100% !important;
+        table-layout: fixed;
+    }
+
+    .table th, .table td {
+        padding: 8px 12px;
+        vertical-align: middle;
+        font-size: 14px;
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: normal;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row mt-4">
+        <!-- Form Section -->
+        <div class="col-md-3 shift-more-left">
+            <h4>Add New Trainer</h4>
+            <form method="post" action="{% url 'trainer' %}" class="add-trainer-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg_date">Registration Date</label>
+                    <input type="date" class="form-control" id="reg_date" name="reg_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg_upto">Registration Upto</label>
+                    <input type="date" class="form-control" id="reg_upto" name="reg_upto" required>
+                </div>
+                <div class="form-group">
+                    <label for="sub_type">Subscription Type</label>
+                    <select class="form-control" id="sub_type" name="sub_type" required>
+                        <option value="">Select</option>
+                        <option value="Gym">Gym</option>
+                        <option value="Cross Fit">Cross Fit</option>
+                        <option value="Gym + Cross Fit">Gym + Cross Fit</option>
+                        <option value="Personal Training">Personal Training</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sub_period">Subscription Period (months)</label>
+                    <input type="number" class="form-control" id="sub_period" name="sub_period" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="fees_amount">Fees Amount</label>
+                    <input type="number" class="form-control" id="fees_amount" name="fees_amount" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="fees_status">Fees Status</label>
+                    <select class="form-control" id="fees_status" name="fees_status" required>
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Trainer</button>
+            </form>
+        </div>
+
+        <!-- Trainer Records Section -->
+        <div class="col-md-9">
+            <h4>Trainer Records</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped mt-4">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>DOB</th>
+                            <th>Registration Date</th>
+                            <th>Registration Upto</th>
+                            <th>Subscription Type</th>
+                            <th>Subscription Period</th>
+                            <th>Fees Amount</th>
+                            <th>Fees Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trainer in trainers %}
+                        <tr>
+                            <td>{{ trainer.id }}</td>
+                            <td>{{ trainer.name }}</td>
+                            <td>{{ trainer.dob }}</td>
+                            <td>{{ trainer.reg_date }}</td>
+                            <td>{{ trainer.reg_upto }}</td>
+                            <td>{{ trainer.sub_type }}</td>
+                            <td>{{ trainer.sub_period }}</td>
+                            <td>{{ trainer.fees_amount }}</td>
+                            <td>{{ trainer.fees_status }}</td>
+                            <td>
+                                <a href="{% url 'edit_trainer' trainer.id %}" class="btn btn-sm btn-warning">Edit</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="10" class="text-center">No trainers found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
