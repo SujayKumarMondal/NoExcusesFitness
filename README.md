@@ -7,8 +7,11 @@ A simple gym member manager to keep a track of all payments and members
 ![Dashboard](images/dashboard.png)
 ![New Admission](images/new_addmission.png)
 ![View All Members](images/view_all_members.png)
+![Member Attendance](images/attendance.png)
 ![Generate Reports](images/reports.png)
 ![Notifications](images/notifications.png)
+![Trainer](images/trainer.png)
+![Edit & Delete Trainer](images/edit_trainer.png)
 ![Change Password](images/change_password.png)
 ![Change Wallpaper](images/change_wallpaper.png)
 
