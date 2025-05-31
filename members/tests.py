@@ -8,6 +8,7 @@ class MemberTestCase(TestCase):
         Member.objects.create(
                                 first_name='Sujay',
                                 last_name='Mondal',
+                                mobile_number='6461567890',
                                 mobile_number='4616461451',
                                 email='sujay@gmail.com',
                                 registration_date=datetime.datetime.now(),
