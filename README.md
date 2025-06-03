@@ -72,7 +72,8 @@ A modern, user-friendly web application for managing gym memberships, payments, 
     ```
 
 6. **Access the application:**
-    - Open your browser and go to [http://127.0.0.1:8000/] / http: //127.0.0.1:<your defined port>
+    - Open your browser and go to [http://127.0.0.1:8000/] 
+     http: //127.0.0.1: [your defined port]
 
 ---
 
