@@ -6,6 +6,7 @@ A modern, user-friendly web application for managing gym memberships, payments, 
 ![Dashboard](images/dashboard.png)
 ![New Admission](images/new_admission.png)
 ![View All Members](images/view_all_members.png)
+![Edit Member](images/edit_member.png)
 ![Member Attendance](images/attendance.png)
 ![Member Attendance](images/edit_attendance.png)
 ![Generate Reports](images/reports.png)
