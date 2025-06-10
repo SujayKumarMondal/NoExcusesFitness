@@ -7,6 +7,11 @@
 <style>
     .shift-more-left {
         margin-left: -150px;
+        position: relative; /* for footer positioning if needed */
+        min-height: 100vh;  /* ensure left column fills vertical space */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* space between form and footer */
     }
 
     /* Smaller input/select width for Add Trainer form */
@@ -33,58 +38,79 @@
     .table-responsive {
         overflow-x: auto;
     }
+
+    /* Footer styling: one line, centered, smaller font, spaced inline */
+    footer.text-center {
+        font-size: 0.85rem;
+        margin-top: 20px;
+        text-align: center;
+        white-space: nowrap; /* prevent wrapping */
+        margin-left: 50px;
+    }
+    footer.text-center p {
+        margin: 0;
+    }
+    footer.text-center a {
+        margin: 0 6px;
+        text-decoration: none;
+    }
 </style>
 
 <div class="container-fluid">
     <div class="row mt-4">
         <!-- Form Section -->
         <div class="col-md-3 shift-more-left">
-            <h4>Add New Trainer</h4>
-            <form method="post" action="{% url 'trainer' %}" class="add-trainer-form">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="dob">Date of Birth</label>
-                    <input type="date" class="form-control" id="dob" name="dob" required>
-                </div>
-                <div class="form-group">
-                    <label for="reg_date">Registration Date</label>
-                    <input type="date" class="form-control" id="reg_date" name="reg_date" required>
-                </div>
-                <div class="form-group">
-                    <label for="reg_upto">Registration Upto</label>
-                    <input type="date" class="form-control" id="reg_upto" name="reg_upto" required>
-                </div>
-                <div class="form-group">
-                    <label for="sub_type">Subscription Type</label>
-                    <select class="form-control" id="sub_type" name="sub_type" required>
-                        <option value="">Select</option>
-                        <option value="Gym">Gym</option>
-                        <option value="Cross Fit">Cross Fit</option>
-                        <option value="Gym + Cross Fit">Gym + Cross Fit</option>
-                        <option value="Personal Training">Personal Training</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="sub_period">Subscription Period (months)</label>
-                    <input type="number" class="form-control" id="sub_period" name="sub_period" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label for="fees_amount">Fees Amount</label>
-                    <input type="number" class="form-control" id="fees_amount" name="fees_amount" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label for="fees_status">Fees Status</label>
-                    <select class="form-control" id="fees_status" name="fees_status" required>
-                        <option value="Paid">Paid</option>
-                        <option value="Pending">Pending</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Add Trainer</button>
-            </form>
+            <div>
+                <h4>Add New Trainer</h4>
+                <form method="post" action="{% url 'trainer' %}" class="add-trainer-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" name="dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg_date">Registration Date</label>
+                        <input type="date" class="form-control" id="reg_date" name="reg_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg_upto">Registration Upto</label>
+                        <input type="date" class="form-control" id="reg_upto" name="reg_upto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sub_type">Subscription Type</label>
+                        <select class="form-control" id="sub_type" name="sub_type" required>
+                            <option value="">Select</option>
+                            <option value="Gym">Gym</option>
+                            <option value="Cross Fit">Cross Fit</option>
+                            <option value="Gym + Cross Fit">Gym + Cross Fit</option>
+                            <option value="Personal Training">Personal Training</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sub_period">Subscription Period (months)</label>
+                        <input type="number" class="form-control" id="sub_period" name="sub_period" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fees_amount">Fees Amount</label>
+                        <input type="number" class="form-control" id="fees_amount" name="fees_amount" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fees_status">Fees Status</label>
+                        <select class="form-control" id="fees_status" name="fees_status" required>
+                            <option value="Paid">Paid</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Trainer</button>
+                </form>
+            </div>
+
+            <!-- Footer below form button -->
+            {% include 'footer.html' %}
         </div>
 
         <!-- Trainer Records Section -->
@@ -133,4 +159,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

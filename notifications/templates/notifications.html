@@ -2,6 +2,35 @@
 {% load index %}
 
 {% block content %}
+<style type="text/css">
+    .req{
+      text-decoration: none;
+      color: red;
+    }
+  
+    /* Footer styling: one line, centered, smaller font, spaced inline */
+      footer.text-center {
+        font-size: 0.85rem;
+        margin-top: 20px;
+        text-align: center;
+        white-space: nowrap;
+        /* Remove margin-left */
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: #fff; /* Optional: match your page background */
+        z-index: 100;
+        border-top: 1px solid #eee;
+      }
+      footer.text-center p {
+          margin: 0;
+      }
+      footer.text-center a {
+          margin: 0 6px;
+          text-decoration: none;
+      }
+  </style>
     <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist" style="margin-top: 3%">
       <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#morning" role="tab" aria-controls="home" aria-selected="true">Morning</a>
@@ -195,6 +224,7 @@
         </div>
         {% endif %}
       </div>
+      {% include 'footer.html' %}
     </div>
 {% endblock %}
 

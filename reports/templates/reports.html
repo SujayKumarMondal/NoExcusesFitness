@@ -2,6 +2,35 @@
 {% load tags %}
 
 {% block content %}
+<style type="text/css">
+    .req{
+      text-decoration: none;
+      color: red;
+    }
+  
+    /* Footer styling: one line, centered, smaller font, spaced inline */
+      footer.text-center {
+        font-size: 0.85rem;
+        margin-top: 20px;
+        text-align: center;
+        white-space: nowrap;
+        /* Remove margin-left */
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: #fff; /* Optional: match your page background */
+        z-index: 100;
+        border-top: 1px solid #eee;
+      }
+      footer.text-center p {
+          margin: 0;
+      }
+      footer.text-center a {
+          margin: 0 6px;
+          text-decoration: none;
+      }
+  </style>
 <!-- <a href="{% url 'export_all' %}">Export all users</a> -->
 <form method="POST" action="{% url 'reports' %}" style="margin-top: 3%; margin-bottom: 3%">
     {% csrf_token %}
@@ -25,6 +54,7 @@
         <div class="col ml-auto" style="margin-top: 3%">
             <button type="submit" id="export" name="export" class="btn btn-dark" name="export">Export to Excel</button>
         </div>
+        {% include 'footer.html' %}
     </div>
 </form>
 
