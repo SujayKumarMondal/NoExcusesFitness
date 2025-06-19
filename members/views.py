@@ -413,30 +413,6 @@ def attendance_view(request):
     return render(request, 'attendance.html', context)
 
 
-# def edit_attendance(request, id):
-#     attendance_record = get_object_or_404(Attendance, id=id)
-
-#     if request.method == 'POST':
-#         form = AttendanceForm(request.POST, instance=attendance_record)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('attendance')
-#     else:
-#         form = AttendanceForm(instance=attendance_record)
-
-#     context = {
-#         'form': form,
-#         'attendance_record': attendance_record,
-#     }
-#     return render(request, 'edit_attendance.html', context)
-
-# def delete_attendance(request, record_id):
-#     print(f"Record ID: {record_id}")  # Debugging statement
-#     record = get_object_or_404(Attendance, id=record_id)
-#     record.delete()
-#     return redirect('attendance')
-
-
 def edit_attendance(request, id):
     # Fetch the attendance record
     record = get_object_or_404(Attendance, id=id)

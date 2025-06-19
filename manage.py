@@ -13,5 +13,5 @@ if __name__ == "__main__":
             "forget to activate a virtual environment?"
         ) from exc
     if len(sys.argv) == 1 or sys.argv[1] == "runserver":
-        sys.argv = [sys.argv[0], "runserver", "127.0.0.1:2025"]
+        sys.argv = [sys.argv[0], "runserver", "127.0.0.1:8010"]
     execute_from_command_line(sys.argv)
