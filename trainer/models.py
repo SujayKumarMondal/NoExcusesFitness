@@ -21,4 +21,4 @@ class TrainerAttendance(models.Model):
     status = models.CharField(max_length=10, choices=[('Present', 'Present'), ('Absent', 'Absent')])
 
     def __str__(self):
-        return f"{self.trainer.first_name} {self.trainer.last_name} - {self.date} - {self.status}"
+        return f"{self.trainer.name} - {self.date} - {self.status}"

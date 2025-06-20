@@ -68,13 +68,13 @@ def trainer_attendance_view(request):
     # Filter attendance records by date if filter_date is provided
     filter_date = request.GET.get('filter_date')
     if filter_date:
-        attendance_records = TrainerAttendance.objects.filter(date=filter_date)
+        trainer_attendance_records = TrainerAttendance.objects.filter(date=filter_date)
     else:
-        attendance_records = TrainerAttendance.objects.all()
+        trainer_attendance_records = TrainerAttendance.objects.all()
 
     context = {
         'form': form,
-        'attendance_records': attendance_records,
+        'attendance_records': trainer_attendance_records,
         'filter_date': filter_date,
     }
     return render(request, 'trainer_attendance.html', context)
