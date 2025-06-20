@@ -3,7 +3,7 @@ from .models import Trainer
 import datetime
 
 # Create your tests here.
-class MemberTestCase(TestCase):
+class TrainerTestCase(TestCase):
     def setUp(self):
         Trainer.objects.create(
                                 first_name='Raja',
@@ -19,6 +19,6 @@ class MemberTestCase(TestCase):
                                 batch='morning',
                             )
 
-    def test_member(self):
+    def test_trainer(self):
         check = Trainer.objects.get(first_name='Raja')
         print(check)
