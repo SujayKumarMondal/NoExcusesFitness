@@ -12,3 +12,13 @@ class Trainer(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+class TrainerAttendance(models.Model):
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, default=1)
+    date = models.DateField()
+    status = models.CharField(max_length=10, choices=[('Present', 'Present'), ('Absent', 'Absent')])
+
+    def __str__(self):
+        return f"{self.trainer.name} - {self.date} - {self.status}"

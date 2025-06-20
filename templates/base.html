@@ -64,7 +64,7 @@
             <a class="nav-link" href="{% url 'view_member'%}">View All Members</a>
           </li>
           <li class="nav-item {% if request.resolver_match.url_name == 'attendance' %} active {% endif %}">
-            <a class="nav-link" href="{% url 'attendance' %}">Attendance</a>
+            <a class="nav-link" href="{% url 'attendance' %}">Member Attendance</a>
           </li>
           <li class="nav-item {% if request.resolver_match.url_name == 'reports' %} active {% endif %}">
             <a class="nav-link" href="{% url 'reports' %}">Reports</a>
@@ -74,6 +74,9 @@
           </li>
           <li class="nav-item {% if request.resolver_match.url_name == 'trainer' %} active {% endif %}">
             <a class="nav-link" href="{% url 'trainer' %}">Trainer</a>
+          </li>
+          <li class="nav-item {% if request.resolver_match.url_name == 'trainer_attendance' %} active {% endif %}">
+            <a class="nav-link" href="{% url 'trainer_attendance' %}">Trainer Attendance</a>
           </li>
         </ul>
 
