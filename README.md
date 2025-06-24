@@ -13,8 +13,9 @@ A modern, user-friendly web application for managing gym memberships, payments, 
 ![Notifications](images/notifications.png)
 ![Trainer](images/trainer.png)
 ![Edit & Delete Trainer](images/edit_trainer.png)
+![Edit & Delete Trainer](images/trainer_attendance.png)
+![Edit & Delete Trainer](images/edit_trainer_attendance.png)
 ![Change Password](images/change_password.png)
-![Change Wallpaper](images/change_wallpaper.png)
 
 ---
 
