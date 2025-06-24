@@ -6,11 +6,13 @@
 {% endblock %}
 
 {% block without_container %}
+<style>
+  body {
+    background: url("{% static 'images/NoExcuseFitnessBG.jpg' %}") no-repeat center center fixed;
+    background-size: cover;
+  }
+</style>
 <div class="container-fluid" id="homepage_after_login" style="padding: 0; height: 90%">
-  {% if wallpaper.photo %}
-  <img src="{{ wallpaper.photo }}" class="img-fluid">
-  {% else %}
-  <img src="{% static 'images/after_login.jpg' %}" class="img-fluid" alt="">
-  {% endif %}
+  <!-- Your main content here -->
 </div>
 {% endblock %}

@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.files.storage import FileSystemStorage
-from .models import Wallpaper, WallpaperForm
+# from .models import Wallpaper, WallpaperForm
 from django.conf import settings
 from notifications.config import get_notification_count, run_notifier
 
@@ -14,11 +14,13 @@ def homepage(request):
 
 def homepage_after_login(request):
     # run_notifier()
-    if not Wallpaper.objects.filter()[:1].exists():
-        return render(request, 'homepage_after_login.html')
-    else:
-        wallpaper = Wallpaper.objects.filter()[:1].get()
-        return render(request, 'homepage_after_login.html', {'wallpaper': wallpaper, 'subs_end_today_count': get_notification_count()})
+    # if not Wallpaper.objects.filter()[:1].exists():
+    #     return render(request, 'homepage_after_login.html')
+    # else:
+    #     wallpaper = Wallpaper.objects.filter()[:1].get()
+    #     return render(request, 'homepage_after_login.html', {'wallpaper': wallpaper, 'subs_end_today_count': get_notification_count()})
+    return render(request, 'homepage_after_login.html')
+
 
 def set_wallpaper(request):
     if request.method == 'POST':
