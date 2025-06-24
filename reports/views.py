@@ -23,39 +23,28 @@ def reports(request):
     if request.method == 'POST':
         form = GenerateReportForm(request.POST)
         if form.is_valid():
-            if 'generate_all' in request.POST:  # Check if "Generate Report" for all members is clicked
-                users = Member.objects.all()  # Fetch all members
-            elif request.POST.get('month') and request.POST.get('year') and request.POST.get('batch'):
-                query = Q(
-                    registration_date__month=request.POST.get('month'),
-                    registration_date__year=request.POST.get('year'),
-                    batch=request.POST.get('batch')
-                )
-                users = Member.objects.filter(query)
-            elif request.POST.get('month') and request.POST.get('year'):
-                query = Q(
-                    registration_date__month=request.POST.get('month'),
-                    registration_date__year=request.POST.get('year')
-                )
-                users = Member.objects.filter(query)
-            elif request.POST.get('month') and request.POST.get('batch'):
-                query = Q(
-                    registration_date__month=request.POST.get('month'),
-                    batch=request.POST.get('batch')
-                )
-                users = Member.objects.filter(query)
-            elif request.POST.get('year') and request.POST.get('batch'):
-                query = Q(
-                    registration_date__year=request.POST.get('year'),
-                    batch=request.POST.get('batch')
-                )
-                users = Member.objects.filter(query)
-            else:
-                query = Q(
-                    registration_date__year=request.POST.get('year'),
-                )
-                users = Member.objects.filter(query)
+            month = request.POST.get('month')
+            year = request.POST.get('year')
+            batch = request.POST.get('batch')
 
+            # Convert to integers if not empty
+            month = int(month) if month else None
+            year = int(year) if year else None
+
+            filters = {}
+            if month:
+                filters['registration_date__month'] = month
+            if year:
+                filters['registration_date__year'] = year
+            if batch and batch != 'All':
+                filters['batch'] = batch
+
+            if 'generate_all' in request.POST or 'export' in request.POST:
+                # Always filter based on selected fields
+                users = Member.objects.filter(**filters) if filters else Member.objects.all()
+            else:
+                users = Member.objects.filter(**filters) if filters else Member.objects.none()
+            
             if 'export' in request.POST:
                 return export_all(users)
             
