@@ -3,241 +3,360 @@
 
 {% block content %}
 <style type="text/css">
-    .req{
-      text-decoration: none;
-      color: red;
-    }
-  
-    /* Footer styling: one line, centered, smaller font, spaced inline */
-      footer.text-center {
-        font-size: 0.85rem;
-        margin-top: 20px;
-        text-align: center;
-        white-space: nowrap;
-        /* Remove margin-left */
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background: #fff; /* Optional: match your page background */
-        z-index: 100;
-        border-top: 1px solid #eee;
-      }
-      footer.text-center p {
-          margin: 0;
-      }
-      footer.text-center a {
-          margin: 0 6px;
-          text-decoration: none;
-      }
-  </style>
-    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist" style="margin-top: 3%">
-      <li class="nav-item">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#morning" role="tab" aria-controls="home" aria-selected="true">Morning</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#evening" role="tab" aria-controls="profile" aria-selected="false">Evening</a>
-      </li>
-    </ul>
+  .req {
+    text-decoration: none;
+    color: red;
+  }
 
-    <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="morning" role="tabpanel" aria-labelledby="home-tab">
-        <h3 style="margin-top: 3%; margin-bottom: 3%">Due Today</h3>
-        {% if morning_members_today %}
-            <table class="table table-bordered">
-                <thead class="thead-dark text-center">
-                    <tr>
-				   <th>Profile Photo</th>
-                        <th>Name</th>
-                        <th>DOB</th>
-                        <th>Registration Date</th>
-                        <th>Registration End</th>
-                        <th>Subscription Type</th>
-                        <th>Edit</th>
-                        <th>Delete Notification</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    {% for member in morning_members_today %}
-                        <tr>
-					<td><img src="{% if member.photo %}{{ member.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
-                            <td>{{ member.first_name }} {{ member.last_name }}</td>
-                            <td>{{ member.dob }}</td>
-                            <td>{{ member.registration_date }}</td>
-                            <td>{{ member.registration_upto }}</td>
-                            <td>{{ member.get_subscription_type_display }}</td>
-                            <td>
-                                <a href="/members/update/{{ member.member_id }}/"><button class="btn btn-success">Edit</button>
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                <a href="/notifications/delete/{{ member.member_id }}/"><button class="btn btn-danger">Delete</button>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-        <div class="row text-center">
-            <div class="alert alert-warning col"> <strong>No Notifications</strong> </div>
-        </div>
-        {% endif %}
+  footer.text-center {
+    font-size: 0.85rem;
+    margin-top: 20px;
+    text-align: center;
+    white-space: nowrap;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 100;
+    border-top: 1px solid #eee;
+  }
 
-        <hr>
+  footer.text-center p {
+    margin: 0;
+  }
 
-        <h3>Past Dues</h3>
-        {% if morning_members_before %}
-        <table class="table table-bordered">
-            <thead class="thead-dark text-center">
-                <tr>
-			    <th>Profile Photo</th>
-                    <th>Name</th>
-                    <th>DOB</th>
-                    <th>Registration Date</th>
-                    <th>Registration End</th>
-                    <th>Subscription Type</th>
-                    <th>Pending Month</th>
-                    <th>Edit</th>
-                    <th>Delete Notification</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                {% for member in morning_members_before %}
-                    <tr>
-				  <td><img src="{% if member.photo %}{{ member.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
+  footer.text-center a {
+    margin: 0 6px;
+    text-decoration: none;
+  }
+</style>
 
-                        <td>{{ member.first_name }} {{ member.last_name }}</td>
-                        <td>{{ member.dob }}</td>
-                        <td>{{ member.registration_date }}</td>
-                        <td>{{ member.registration_upto }}</td>
-                        <td>{{ member.get_subscription_type_display }}</td>
-                        <td>{{ member.registration_upto|get_remaining_months}}</td>
-                        <td>
-                            <a href="/members/update/{{ member.member_id }}/"><button class="btn btn-success">Edit</button>
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="/notifications/delete/{{ member.member_id }}/"><button class="btn btn-danger">Delete</button>
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<ul class="nav nav-tabs nav-justified mt-3" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="morning-tab" data-toggle="tab" href="#morning" role="tab">Morning</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="evening-tab" data-toggle="tab" href="#evening" role="tab">Evening</a>
+  </li>
+</ul>
 
-        {% else %}
-        <div class="row text-center">
-            <div class="alert alert-warning col"> <strong>No Notifications</strong> </div>
-        </div>
-        {% endif %}
-      </div>
+<div class="tab-content" id="myTabContent">
 
-      <div class="tab-pane fade show" id="evening" role="tabpanel" aria-labelledby="home-tab">
-        <h3 style="margin-top: 3%; margin-bottom: 3%">Due Today</h3>
-        {% if evening_members_today %}
-            <table class="table table-bordered">
-                <thead class="thead-dark text-center">
-                    <tr>
-				  <th>Profile Photo</th>
-                        <th>Name</th>
-                        <th>DOB</th>
-                        <th>Registration Date</th>
-                        <th>Registration End</th>
-                        <th>Subscription Type</th>
-                        <th>Edit</th>
-                        <th>Delete Notification</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    {% for member in evening_members_today %}
-                        <tr>
-					 <td><img src="{% if member.photo %}{{ member.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
+  <!-- MORNING TAB -->
+  <div class="tab-pane fade show active" id="morning" role="tabpanel">
 
-                            <td>{{ member.first_name }} {{ member.last_name }}</td>
-                            <td>{{ member.dob }}</td>
-                            <td>{{ member.registration_date }}</td>
-                            <td>{{ member.registration_upto }}</td>
-                            <td>{{ member.get_subscription_type_display }}</td>
-                            <td>
-                                <a href="/members/update/{{ member.member_id }}/"><button class="btn btn-success">Edit</button>
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                <a href="/notifications/delete/{{ member.member_id }}/"><button class="btn btn-danger">Delete</button>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-        <div class="row text-center">
-            <div class="alert alert-warning col"> <strong>No Notifications</strong> </div>
-        </div>
-        {% endif %}
+    <!-- Morning Members - Due Today -->
+    <h3 class="mt-4 mb-3">Due Today – Members</h3>
+    {% if morning_members_today %}
+      <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th>Profile Photo</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Registration Date</th>
+            <th>Registration End</th>
+            <th>Subscription Type</th>
+            <th>Edit</th>
+            <th>Delete Notification</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in morning_members_today %}
+          <tr>
+            <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
+            <td>{{ entry.first_name }} {{ entry.last_name }}</td>
+            <td>{{ entry.dob }}</td>
+            <td>{{ entry.registration_date }}</td>
+            <td>{{ entry.registration_upto }}</td>
+            <td>{{ entry.get_subscription_type_display }}</td>
+            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
+            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-warning text-center">No Notifications</div>
+    {% endif %}
 
-        <hr>
+    <!-- Morning Members - Past Dues -->
+    <h3 class="mt-5 mb-3">Past Dues – Members</h3>
+    {% if morning_members_before %}
+      <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th>Profile Photo</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Registration Date</th>
+            <th>Registration End</th>
+            <th>Subscription Type</th>
+            <th>Pending Month</th>
+            <th>Edit</th>
+            <th>Delete Notification</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in morning_members_before %}
+          <tr>
+            <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
+            <td>{{ entry.first_name }} {{ entry.last_name }}</td>
+            <td>{{ entry.dob }}</td>
+            <td>{{ entry.registration_date }}</td>
+            <td>{{ entry.registration_upto }}</td>
+            <td>{{ entry.get_subscription_type_display }}</td>
+            <td>{{ entry.registration_upto|get_remaining_months }}</td>
+            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
+            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-warning text-center">No Notifications</div>
+    {% endif %}
 
-        <h3>Past Dues</h3>
-        {% if evening_members_before %}
-        <table class="table table-bordered">
-            <thead class="thead-dark text-center">
-                <tr>
-			    <th>Profile Photo</th>
-                    <th>Name</th>
-                    <th>DOB</th>
-                    <th>Registration Date</th>
-                    <th>Registration End</th>
-                    <th>Subscription Type</th>
-                    <th>Pending Month</th>
-                    <th>Edit</th>
-                    <th>Delete Notification</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                {% for member in evening_members_before %}
-                    <tr>	
-				  <td><img src="{% if member.photo %}{{ member.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
-                        <td>{{ member.first_name }} {{ member.last_name }}</td>
-                        <td>{{ member.dob }}</td>
-                        <td>{{ member.registration_date }}</td>
-                        <td>{{ member.registration_upto }}</td>
-                        <td>{{ member.get_subscription_type_display }}</td>
-                        <td>{{ member.registration_upto|get_remaining_months}}</td>
-                        <td>
-                            <a href="/members/update/{{ member.member_id }}/"><button class="btn btn-success">Edit</button>
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="/notifications/delete/{{ member.member_id }}/"><button class="btn btn-danger">Delete</button>
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <!-- Morning Trainers - Due Today -->
+    <h3 class="mt-5 mb-3">Due Today – Trainers</h3>
+    {% if morning_trainers_today %}
+      <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th>Profile Photo</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Registration Date</th>
+            <th>Registration End</th>
+            <th>Subscription Type</th>
+            <th>Edit</th>
+            <th>Delete Notification</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in morning_trainers_today %}
+          <tr>
+            <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
+            <td>{{ entry.first_name }} {{ entry.last_name }}</td>
+            <td>{{ entry.dob }}</td>
+            <td>{{ entry.registration_date }}</td>
+            <td>{{ entry.registration_upto }}</td>
+            <td>{{ entry.get_subscription_type_display }}</td>
+            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
+            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-warning text-center">No Notifications</div>
+    {% endif %}
 
-        {% else %}
-        <div class="row text-center">
-            <div class="alert alert-warning col"> <strong>No Notifications</strong> </div>
-        </div>
-        {% endif %}
-      </div>
-      {% comment %} {% include 'footer.html' %} {% endcomment %}
-    </div>
+    <!-- Morning Trainers - Past Dues -->
+    <h3 class="mt-5 mb-3">Past Dues – Trainers</h3>
+    {% if morning_trainers_before %}
+      <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th>Profile Photo</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Registration Date</th>
+            <th>Registration End</th>
+            <th>Subscription Type</th>
+            <th>Pending Month</th>
+            <th>Edit</th>
+            <th>Delete Notification</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in morning_trainers_before %}
+          <tr>
+            <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
+            <td>{{ entry.first_name }} {{ entry.last_name }}</td>
+            <td>{{ entry.dob }}</td>
+            <td>{{ entry.registration_date }}</td>
+            <td>{{ entry.registration_upto }}</td>
+            <td>{{ entry.get_subscription_type_display }}</td>
+            <td>{{ entry.registration_upto|get_remaining_months }}</td>
+            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
+            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-warning text-center">No Notifications</div>
+    {% endif %}
+  </div>
+
+  <!-- EVENING TAB -->
+  <div class="tab-pane fade" id="evening" role="tabpanel">
+
+    <!-- Repeat for Evening Members and Trainers using same structure -->
+    <!-- Evening Members - Due Today -->
+    <h3 class="mt-4 mb-3">Due Today – Members</h3>
+    {% if evening_members_today %}
+      <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+          <tr>
+            <th>Profile Photo</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Registration Date</th>
+            <th>Registration End</th>
+            <th>Subscription Type</th>
+            <th>Edit</th>
+            <th>Delete Notification</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in evening_members_today %}
+          <tr>
+            <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
+            <td>{{ entry.first_name }} {{ entry.last_name }}</td>
+            <td>{{ entry.dob }}</td>
+            <td>{{ entry.registration_date }}</td>
+            <td>{{ entry.registration_upto }}</td>
+            <td>{{ entry.get_subscription_type_display }}</td>
+            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
+            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-warning text-center">No Notifications</div>
+    {% endif %}
+    
+    <!-- Evening Members - Past Dues -->
+    <h3 class="mt-5 mb-3">Past Dues – Members</h3>
+    {% if evening_members_before %}
+    <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+        <tr>
+            <th>Profile Photo</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Registration Date</th>
+            <th>Registration End</th>
+            <th>Subscription Type</th>
+            <th>Pending Month</th>
+            <th>Edit</th>
+            <th>Delete Notification</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entry in evening_members_before %}
+        <tr>
+            <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
+            <td>{{ entry.first_name }} {{ entry.last_name }}</td>
+            <td>{{ entry.dob }}</td>
+            <td>{{ entry.registration_date }}</td>
+            <td>{{ entry.registration_upto }}</td>
+            <td>{{ entry.get_subscription_type_display }}</td>
+            <td>{{ entry.registration_upto|get_remaining_months }}</td>
+            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
+            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-warning text-center">No Notifications</div>
+    {% endif %}
+
+
+     <!-- Evening Trainers - Due Today -->
+    <h3 class="mt-5 mb-3">Due Today – Trainers</h3>
+    {% if evening_trainers_today %}
+    <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+        <tr>
+            <th>Profile Photo</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Registration Date</th>
+            <th>Registration End</th>
+            <th>Subscription Type</th>
+            <th>Edit</th>
+            <th>Delete Notification</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entry in evening_trainers_today %}
+        <tr>
+            <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
+            <td>{{ entry.first_name }} {{ entry.last_name }}</td>
+            <td>{{ entry.dob }}</td>
+            <td>{{ entry.registration_date }}</td>
+            <td>{{ entry.registration_upto }}</td>
+            <td>{{ entry.get_subscription_type_display }}</td>
+            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
+            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-warning text-center">No Notifications</div>
+    {% endif %}
+
+    <!-- Evening Trainers - Past Dues -->
+    <h3 class="mt-5 mb-3">Past Dues – Trainers</h3>
+    {% if evening_trainers_before %}
+    <table class="table table-bordered text-center">
+        <thead class="thead-dark">
+        <tr>
+            <th>Profile Photo</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Registration Date</th>
+            <th>Registration End</th>
+            <th>Subscription Type</th>
+            <th>Pending Month</th>
+            <th>Edit</th>
+            <th>Delete Notification</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entry in evening_trainers_before %}
+        <tr>
+            <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
+            <td>{{ entry.first_name }} {{ entry.last_name }}</td>
+            <td>{{ entry.dob }}</td>
+            <td>{{ entry.registration_date }}</td>
+            <td>{{ entry.registration_upto }}</td>
+            <td>{{ entry.get_subscription_type_display }}</td>
+            <td>{{ entry.registration_upto|get_remaining_months }}</td>
+            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
+            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-warning text-center">No Notifications</div>
+    {% endif %}
+
+    <!-- - evening_trainers_before -->
+    <!-- Use same structure and just replace variable names accordingly -->
+
+  </div>
+</div>
 {% endblock %}
 
 {% block javascript %}
 <script type="text/javascript">
-  $(document).ready(function(){
-      $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-          localStorage.setItem('activeTab', $(e.target).attr('href'));
-      });
-      var activeTab = localStorage.getItem('activeTab');
-      if(activeTab){
-          $('#myTab a[href="' + activeTab + '"]').tab('show');
-      }
+  $(document).ready(function () {
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+      localStorage.setItem('activeTab', $(e.target).attr('href'));
+    });
+    var activeTab = localStorage.getItem('activeTab');
+    if (activeTab) {
+      $('#myTab a[href="' + activeTab + '"]').tab('show');
+    }
   });
-  </script>
+</script>
 {% endblock %}

@@ -30,12 +30,12 @@
       }
   </style>
 <div class="container" style="margin-top: 3%;">
-    <h2>Edit Trainer Attendance</h2>
+    <h2>Edit Attendance</h2>
 
     <form method="POST">
         {% csrf_token %}
 
-        <!-- Trainer Field -->
+        <!-- trainer Field -->
         <div class="form-group" style="width: 200px;">
             {{ form.trainer.label_tag }}
             {{ form.trainer }}
@@ -61,7 +61,7 @@
     <!-- Delete Button Form -->
     <form method="POST" action="{% url 'delete_attendance' record.id %}">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Delete Trainer Attendance</button>
+        <button type="submit" class="btn btn-danger">Delete Attendance</button>
     </form>
     {% comment %} {% include 'footer.html' %} {% endcomment %}
 </div>

@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'notifications',
     'reports',
     'payments',
-    'trainer',
+    'trainers',
 ]
 
 MIDDLEWARE = [
