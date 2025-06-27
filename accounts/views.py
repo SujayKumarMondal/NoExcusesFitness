@@ -22,24 +22,24 @@ def homepage_after_login(request):
     return render(request, 'homepage_after_login.html')
 
 
-def set_wallpaper(request):
-    if request.method == 'POST':
-        form = WallpaperForm(request.POST, request.FILES)
-        if form.is_valid():
-            if Wallpaper.objects.filter()[:1].exists():
-                object = Wallpaper.objects.filter()[:1].get()
-                # for updating photo
-                if 'photo' in request.FILES:
-                    myfile = request.FILES['photo']
-                    fs = FileSystemStorage(base_url=settings.WALLPAPER_URL, location=settings.WALLPAPER_FILES)
-                    photo = fs.save(myfile.name, myfile)
-                    object.photo = fs.url(photo)
-                object.save()
-            else:
-                form.save()
-        return render(request, 'set_wallpaper.html', {'form': WallpaperForm(), 'success':'Successfully Changed the Wallpaper!'})
-    else:
-        return render(request, 'set_wallpaper.html', {'form': WallpaperForm()})
+# def set_wallpaper(request):
+#     if request.method == 'POST':
+#         form = WallpaperForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             if Wallpaper.objects.filter()[:1].exists():
+#                 object = Wallpaper.objects.filter()[:1].get()
+#                 # for updating photo
+#                 if 'photo' in request.FILES:
+#                     myfile = request.FILES['photo']
+#                     fs = FileSystemStorage(base_url=settings.WALLPAPER_URL, location=settings.WALLPAPER_FILES)
+#                     photo = fs.save(myfile.name, myfile)
+#                     object.photo = fs.url(photo)
+#                 object.save()
+#             else:
+#                 form.save()
+#         return render(request, 'set_wallpaper.html', {'form': WallpaperForm(), 'success':'Successfully Changed the Wallpaper!'})
+#     else:
+#         return render(request, 'set_wallpaper.html', {'form': WallpaperForm()})
 
 def change_password(request):
     if request.method == 'POST':
