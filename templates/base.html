@@ -114,7 +114,12 @@
     <ul class="nav flex-column">
       <li class="nav-item {% if request.resolver_match.url_name == 'members' %}active{% endif %}">
         <a class="nav-link" href="{% url 'members' %}">
-          <i class="fas fa-user-plus me-2"></i> New Admission
+          <i class="fas fa-user-plus me-2"></i> New Member Admission
+        </a>
+      </li>
+      <li class="nav-item {% if request.resolver_match.url_name == 'trainers' %}active{% endif %}">
+        <a class="nav-link" href="{% url 'trainers' %}">
+          <i class="fas fa-user-plus me-2"></i> New Trainer Admission
         </a>
       </li>
       <li class="nav-item {% if request.resolver_match.url_name == 'view_member' %}active{% endif %}">
@@ -122,9 +127,19 @@
           <i class="fas fa-users me-2"></i> View All Members
         </a>
       </li>
+      <li class="nav-item {% if request.resolver_match.url_name == 'view_trainer' %}active{% endif %}">
+        <a class="nav-link" href="{% url 'view_trainer' %}">
+          <i class="fas fa-users me-2"></i> View All Trainers
+        </a>
+      </li>
       <li class="nav-item {% if request.resolver_match.url_name == 'attendance' %}active{% endif %}">
         <a class="nav-link" href="{% url 'attendance' %}">
           <i class="fas fa-calendar-check me-2"></i> Member Attendance
+        </a>
+      </li>
+      <li class="nav-item {% if request.resolver_match.url_name == 'trainer_attendance' %}active{% endif %}">
+        <a class="nav-link" href="{% url 'trainer_attendance' %}">
+          <i class="fas fa-calendar-check me-2"></i> Trainer Attendance
         </a>
       </li>
       <li class="nav-item {% if request.resolver_match.url_name == 'reports' %}active{% endif %}">
@@ -136,16 +151,6 @@
         <a class="nav-link" href="{% url 'notifications' %}">
           <i class="fas fa-bell me-2"></i> Notifications
           <span class="badge badge-success">{{ subs_end_today_count }}</span>
-        </a>
-      </li>
-      <li class="nav-item {% if request.resolver_match.url_name == 'trainer' %}active{% endif %}">
-        <a class="nav-link" href="{% url 'trainer' %}">
-          <i class="fas fa-dumbbell me-2"></i> Trainer
-        </a>
-      </li>
-      <li class="nav-item {% if request.resolver_match.url_name == 'trainer_attendance' %}active{% endif %}">
-        <a class="nav-link" href="{% url 'trainer_attendance' %}">
-          <i class="fas fa-user-check me-2"></i> Trainer Attendance
         </a>
       </li>
       <li class="nav-item {% if request.resolver_match.url_name == 'change_password' %}active{% endif %}">
