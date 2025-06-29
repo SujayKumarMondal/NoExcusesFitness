@@ -71,6 +71,14 @@ def notifications(request):
 
 
 def notification_delete(request, id):
+    
+    # member = Member.objects.get(pk=id)
+        # post_save.disconnect(my_handler, sender=Member)
+        # member.notification = 0
+        # member.stop = 1
+        # member.save()
+        # post_save.connect(my_handler, sender=Member)
+    
     try:
         member = Member.objects.get(pk=id)
         post_save.disconnect(my_handler, sender=Member)
@@ -88,5 +96,6 @@ def notification_delete(request, id):
             post_save.connect(my_handler, sender=Trainer)
         except Trainer.DoesNotExist:
             pass  # Or handle error
+        
 
     return redirect('/notifications/')

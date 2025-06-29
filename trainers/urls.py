@@ -1,4 +1,4 @@
-"""Trainers URL Configuration
+"""trainers URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -26,6 +26,6 @@ urlpatterns = [
     path('update/<int:id>/', login_required(views.update_trainer), name='update_trainer'),
     path('attendance/', attendance_view, name='trainer_attendance'),
     path('', login_required(views.trainers), name='trainers'),
-    path('attendance/edit/<int:id>/', views.edit_attendance, name='edit_trainer_attendance'),
+    path('attendance/edit/<int:id>/', views.edit_attendance, name='edit_attendance'),
     path('attendance/delete/<int:record_id>/', views.delete_attendance, name='delete_attendance'),
 ]

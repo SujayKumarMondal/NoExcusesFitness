@@ -110,7 +110,7 @@ def get_notification_count():
 
     total_count = (
         notif_members.count() +
-        pending_members.count() +
+        pending_members.count()+
         notif_trainers.count() +
         pending_trainers.count()
     )

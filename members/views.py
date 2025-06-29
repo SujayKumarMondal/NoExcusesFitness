@@ -14,7 +14,7 @@ from django.db.models.signals import post_save
 from notifications.config import my_handler
 from django.contrib import messages
 from .models import Attendance
-from .forms import AttendanceForm
+from .forms import MemberAttendanceForm
 from .models import Attendance 
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -391,12 +391,12 @@ def update_member(request, id):
 
 def attendance_view(request):
     if request.method == 'POST':
-        form = AttendanceForm(request.POST)
+        form = MemberAttendanceForm(request.POST)
         if form.is_valid():
             form.save()  # Save the attendance record
             return redirect('attendance')
     else:
-        form = AttendanceForm()
+        form = MemberAttendanceForm()
 
     # Filter attendance records by date if filter_date is provided
     filter_date = request.GET.get('filter_date')
@@ -419,7 +419,7 @@ def edit_attendance(request, id):
     
     if request.method == 'POST':
         # Bind the form with POST data and the existing record
-        form = AttendanceForm(request.POST, instance=record)
+        form = MemberAttendanceForm(request.POST, instance=record)
         if form.is_valid():
             # Save the updated record
             form.save()
@@ -427,7 +427,7 @@ def edit_attendance(request, id):
             return redirect('attendance')  # Replace 'attendance' with the correct URL name
     else:
         # Initialize the form with the existing record
-        form = AttendanceForm(instance=record)
+        form = MemberAttendanceForm(instance=record)
     
     # Render the edit template with the form and record
     return render(request, 'edit_attendance.html', {'form': form, 'record': record})
