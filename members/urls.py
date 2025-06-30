@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path, include
 from . import views
-from .views import attendance_view, edit_attendance
+from .views import attendance_view, edit_member_attendance
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
@@ -26,6 +26,6 @@ urlpatterns = [
     path('update/<int:id>/', login_required(views.update_member), name='update_member'),
     path('attendance/', attendance_view, name='attendance'),
     path('', login_required(views.members), name='members'),
-    path('attendance/edit/<int:id>/', views.edit_attendance, name='edit_attendance'),
+    path('attendance/edit/<int:id>/', views.edit_member_attendance, name='edit_member_attendance'),
     path('attendance/delete/<int:record_id>/', views.delete_attendance, name='delete_attendance'),
 ]

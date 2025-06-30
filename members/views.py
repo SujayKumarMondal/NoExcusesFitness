@@ -413,7 +413,7 @@ def attendance_view(request):
     return render(request, 'attendance.html', context)
 
 
-def edit_attendance(request, id):
+def edit_member_attendance(request, id):
     # Fetch the attendance record
     record = get_object_or_404(Attendance, id=id)
     
@@ -430,7 +430,7 @@ def edit_attendance(request, id):
         form = MemberAttendanceForm(instance=record)
     
     # Render the edit template with the form and record
-    return render(request, 'edit_attendance.html', {'form': form, 'record': record})
+    return render(request, 'edit_member_attendance.html', {'form': form, 'record': record})
 
 def delete_attendance(request, record_id):
     record = get_object_or_404(Attendance, id=record_id)
