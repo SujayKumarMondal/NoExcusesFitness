@@ -19,6 +19,6 @@ class TrainerTestCase(TestCase):
                                 batch='morning',
                             )
 
-    def test_member(self):
+    def test_trainer(self):
         check = Trainer.objects.get(first_name='Sujay')
         print(check)

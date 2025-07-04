@@ -58,8 +58,6 @@
             <th>Registration Date</th>
             <th>Registration End</th>
             <th>Subscription Type</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -71,8 +69,6 @@
             <td>{{ entry.registration_date }}</td>
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
-            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -94,8 +90,6 @@
             <th>Registration End</th>
             <th>Subscription Type</th>
             <th>Pending Month</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -108,8 +102,6 @@
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
             <td>{{ entry.registration_upto|get_remaining_months }}</td>
-            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -130,8 +122,6 @@
             <th>Registration Date</th>
             <th>Registration End</th>
             <th>Subscription Type</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -143,8 +133,6 @@
             <td>{{ entry.registration_date }}</td>
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
-            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -166,8 +154,6 @@
             <th>Registration End</th>
             <th>Subscription Type</th>
             <th>Pending Month</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -180,8 +166,6 @@
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
             <td>{{ entry.registration_upto|get_remaining_months }}</td>
-            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -194,7 +178,6 @@
   <!-- EVENING TAB -->
   <div class="tab-pane fade" id="evening" role="tabpanel">
 
-    <!-- Repeat for Evening Members and Trainers using same structure -->
     <!-- Evening Members - Due Today -->
     <h3 class="mt-4 mb-3">Due Today – Members</h3>
     {% if evening_members_today %}
@@ -207,8 +190,6 @@
             <th>Registration Date</th>
             <th>Registration End</th>
             <th>Subscription Type</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -220,8 +201,6 @@
             <td>{{ entry.registration_date }}</td>
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
-            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -229,13 +208,13 @@
     {% else %}
       <div class="alert alert-warning text-center">No Notifications</div>
     {% endif %}
-    
+
     <!-- Evening Members - Past Dues -->
     <h3 class="mt-5 mb-3">Past Dues – Members</h3>
     {% if evening_members_before %}
-    <table class="table table-bordered text-center">
+      <table class="table table-bordered text-center">
         <thead class="thead-dark">
-        <tr>
+          <tr>
             <th>Profile Photo</th>
             <th>Name</th>
             <th>DOB</th>
@@ -243,13 +222,11 @@
             <th>Registration End</th>
             <th>Subscription Type</th>
             <th>Pending Month</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
-        </tr>
+          </tr>
         </thead>
         <tbody>
-        {% for entry in evening_members_before %}
-        <tr>
+          {% for entry in evening_members_before %}
+          <tr>
             <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
             <td>{{ entry.first_name }} {{ entry.last_name }}</td>
             <td>{{ entry.dob }}</td>
@@ -257,58 +234,51 @@
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
             <td>{{ entry.registration_upto|get_remaining_months }}</td>
-            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
-        </tr>
-        {% endfor %}
+          </tr>
+          {% endfor %}
         </tbody>
-    </table>
+      </table>
     {% else %}
-    <div class="alert alert-warning text-center">No Notifications</div>
+      <div class="alert alert-warning text-center">No Notifications</div>
     {% endif %}
 
-
-     <!-- Evening Trainers - Due Today -->
+    <!-- Evening Trainers - Due Today -->
     <h3 class="mt-5 mb-3">Due Today – Trainers</h3>
     {% if evening_trainers_today %}
-    <table class="table table-bordered text-center">
+      <table class="table table-bordered text-center">
         <thead class="thead-dark">
-        <tr>
+          <tr>
             <th>Profile Photo</th>
             <th>Name</th>
             <th>DOB</th>
             <th>Registration Date</th>
             <th>Registration End</th>
             <th>Subscription Type</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
-        </tr>
+          </tr>
         </thead>
         <tbody>
-        {% for entry in evening_trainers_today %}
-        <tr>
+          {% for entry in evening_trainers_today %}
+          <tr>
             <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
             <td>{{ entry.first_name }} {{ entry.last_name }}</td>
             <td>{{ entry.dob }}</td>
             <td>{{ entry.registration_date }}</td>
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
-            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
-        </tr>
-        {% endfor %}
+          </tr>
+          {% endfor %}
         </tbody>
-    </table>
+      </table>
     {% else %}
-    <div class="alert alert-warning text-center">No Notifications</div>
+      <div class="alert alert-warning text-center">No Notifications</div>
     {% endif %}
 
     <!-- Evening Trainers - Past Dues -->
     <h3 class="mt-5 mb-3">Past Dues – Trainers</h3>
     {% if evening_trainers_before %}
-    <table class="table table-bordered text-center">
+      <table class="table table-bordered text-center">
         <thead class="thead-dark">
-        <tr>
+          <tr>
             <th>Profile Photo</th>
             <th>Name</th>
             <th>DOB</th>
@@ -316,13 +286,11 @@
             <th>Registration End</th>
             <th>Subscription Type</th>
             <th>Pending Month</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
-        </tr>
+          </tr>
         </thead>
         <tbody>
-        {% for entry in evening_trainers_before %}
-        <tr>
+          {% for entry in evening_trainers_before %}
+          <tr>
             <td><img src="{% if entry.photo %}{{ entry.photo.url }}{% else %}/media/default.jpg{% endif %}" class="img-fluid" width="100" height="100"></td>
             <td>{{ entry.first_name }} {{ entry.last_name }}</td>
             <td>{{ entry.dob }}</td>
@@ -330,19 +298,13 @@
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
             <td>{{ entry.registration_upto|get_remaining_months }}</td>
-            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
-        </tr>
-        {% endfor %}
+          </tr>
+          {% endfor %}
         </tbody>
-    </table>
+      </table>
     {% else %}
-    <div class="alert alert-warning text-center">No Notifications</div>
+      <div class="alert alert-warning text-center">No Notifications</div>
     {% endif %}
-
-    <!-- - evening_trainers_before -->
-    <!-- Use same structure and just replace variable names accordingly -->
-
   </div>
 </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import TrainerAttendance, Trainer  # Import the TrainerAttendance model
+from .models import TrainerAttendance, Trainer  # Import the Attendance model
 from django.db import models
 
 class AddTrainerForm(forms.Form):
@@ -16,5 +16,5 @@ class TrainerAttendanceForm(forms.ModelForm):  # Ensure this is a ModelForm
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
-            'trainer': forms.Select(attrs={'class': 'form-control'}),
+            'Trainer': forms.Select(attrs={'class': 'form-control'}),
         }

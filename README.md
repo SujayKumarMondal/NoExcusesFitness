@@ -1,8 +1,4 @@
-# Django Gym Member Manager
-
-A modern, user-friendly web application for managing gym memberships, payments, attendance, trainers, and more. Built with Django, this project streamlines gym administration, making it easy to track members, handle payments, generate reports, and manage trainers—all from a clean, responsive interface.
-
-![Login Page](images/login_page.png)
+<!-- ![Login Page](images/login_page.png)
 ![Dashboard](images/dashboard.png)
 ![New Admission](images/new_admission.png)
 ![View All Members](images/view_all_members.png)
@@ -15,24 +11,45 @@ A modern, user-friendly web application for managing gym memberships, payments, 
 ![Edit & Delete Trainer](images/edit_trainer.png)
 ![Edit & Delete Trainer](images/trainer_attendance.png)
 ![Edit & Delete Trainer](images/edit_trainer_attendance.png)
-![Change Password](images/change_password.png)
+![Change Password](images/change_password.png) -->
+
+# No Excuses Fitness Dashboard
+
+A modern, user-friendly web application for managing gym memberships, trainers, payments, attendance, and more. Built with Django, this project streamlines gym administration, making it easy to track members, handle payments, generate reports, and manage trainers—all from a clean, responsive interface.
 
 ---
 
 ## Features
 
 - **Member Management:** Add, edit, view, and delete gym members with ease.
-- **Attendance Tracking:** Record and monitor member attendance.
+- **Trainer Management:** Manage trainer profiles, attendance, and payments.
+- **Attendance Tracking:** Record and monitor attendance for both members and trainers.
 - **Payment Management:** Track payments, due dates, and generate payment reports.
-- **Trainer Management:** Manage trainers, and edit trainer details.
-- **Reporting:** Generate detailed reports on admissions, payments, and attendance. Export reports to Excel.
-- **Notifications:** Send and view notifications for important events.
+- **Reporting:** Generate and export detailed reports on admissions, payments, and attendance.
+- **Notifications:** Receive alerts for important events and expiring memberships.
 - **User Authentication:** Secure login system with password management.
-- **Customizable Dashboard:** Change wallpapers and personalize the admin dashboard.
-- **Responsive UI:** Clean, mobile-friendly interface using Bootstrap.
+- **Customizable Dashboard:** Personalize the admin dashboard and change wallpapers.
+- **Responsive UI:** Clean, mobile-friendly interface powered by Bootstrap.
 
 ---
 
+## Screenshots
+
+| Login Page | Dashboard | New Admission |
+|------------|-----------|---------------|
+| ![Login Page](images/login_page.png) | ![Dashboard](images/dashboard.png) | ![New Admission](images/new_admission.png) |
+
+| View Members | Edit Member | Member Attendance |
+|--------------|-------------|-------------------|
+| ![View All Members](images/view_all_members.png) | ![Edit Member](images/edit_member.png) | ![Member Attendance](images/attendance.png) |
+
+| Edit Attendance | Reports | Notifications |
+|-----------------|---------|--------------|
+| ![Edit Attendance](images/edit_attendance.png) | ![Generate Reports](images/reports.png) | ![Notifications](images/notifications.png) |
+
+| Trainer | Edit Trainer | Trainer Attendance | Edit Trainer Attendance | Change Password |
+|---------|--------------|-------------------|------------------------|-----------------|
+| ![Trainer](images/trainer.png) | ![Edit & Delete Trainer](images/edit_trainer.png) | ![Trainer Attendance](images/trainer_attendance.png) | ![Edit Trainer Attendance](images/edit_trainer_attendance.png) | ![Change Password](images/change_password.png) |
 
 ---
 
@@ -74,8 +91,7 @@ A modern, user-friendly web application for managing gym memberships, payments, 
     ```
 
 6. **Access the application:**
-    - Open your browser and go to [http://127.0.0.1:8000/] 
-     http: //127.0.0.1: [your defined port]
+    - Open your browser and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) or your defined port.
 
 ---
 
@@ -83,18 +99,12 @@ A modern, user-friendly web application for managing gym memberships, payments, 
 
 - **Login:** Use your admin credentials to log in.
 - **Dashboard:** View statistics, quick links, and notifications.
-- **Members:** Add new members, view all members, and manage their details.
+- **Members:** Add, view, and manage gym members.
+- **Trainers:** Manage trainer profiles and attendance.
 - **Attendance:** Mark and review attendance records.
 - **Payments:** Record payments and view payment history.
 - **Reports:** Generate and export reports for admissions and payments.
-- **Trainers:** Manage trainer profiles and records.
 - **Settings:** Change your password and customize the dashboard appearance.
-
----
-
-## Screenshots
-
-> See the images above for a preview of the main features and UI.
 
 ---
 
@@ -120,4 +130,4 @@ Contributions are welcome! Please open issues or submit pull requests for improv
 
 ## Contact
 
-For questions or support, please contact [Sujay](mailto:hiiiamsujay12.com).
+For questions or support, please contact [Sujay Kumar Mondal](mailto:hiiiamsujay12@gmail.com).

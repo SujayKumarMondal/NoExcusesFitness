@@ -9,7 +9,7 @@ class AddMemberForm(forms.Form):
     email = forms.EmailField()
     
     
-class AttendanceForm(forms.ModelForm):  # Ensure this is a ModelForm
+class MemberAttendanceForm(forms.ModelForm):  # Ensure this is a ModelForm
     class Meta:
         model = Attendance
         fields = ['member', 'date', 'status']

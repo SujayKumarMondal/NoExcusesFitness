@@ -1,4 +1,4 @@
-#!C:\Users\SujayKumarMondal\Downloads\NoExcusesFitness\venv\Scripts\python.exe
+#!C:\Users\SujayKumarMondal\PROJECTS\NoExcusesFitnessDash\venv\Scripts\python.exe
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 

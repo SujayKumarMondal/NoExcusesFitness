@@ -4,5 +4,5 @@ Pillow
 python-datauri==0.2.6
 python-dateutil==2.7.0
 pytz==2020.1
-six==1.15.0
+six==1.16.0
 setuptools
