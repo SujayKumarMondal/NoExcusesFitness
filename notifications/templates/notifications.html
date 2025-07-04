@@ -58,8 +58,6 @@
             <th>Registration Date</th>
             <th>Registration End</th>
             <th>Subscription Type</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -71,8 +69,6 @@
             <td>{{ entry.registration_date }}</td>
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
-            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -94,8 +90,6 @@
             <th>Registration End</th>
             <th>Subscription Type</th>
             <th>Pending Month</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -108,8 +102,6 @@
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
             <td>{{ entry.registration_upto|get_remaining_months }}</td>
-            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -130,8 +122,6 @@
             <th>Registration Date</th>
             <th>Registration End</th>
             <th>Subscription Type</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -143,8 +133,6 @@
             <td>{{ entry.registration_date }}</td>
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
-            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -166,8 +154,6 @@
             <th>Registration End</th>
             <th>Subscription Type</th>
             <th>Pending Month</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -180,8 +166,6 @@
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
             <td>{{ entry.registration_upto|get_remaining_months }}</td>
-            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -206,8 +190,6 @@
             <th>Registration Date</th>
             <th>Registration End</th>
             <th>Subscription Type</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -219,8 +201,6 @@
             <td>{{ entry.registration_date }}</td>
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
-            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -242,8 +222,6 @@
             <th>Registration End</th>
             <th>Subscription Type</th>
             <th>Pending Month</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -256,8 +234,6 @@
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
             <td>{{ entry.registration_upto|get_remaining_months }}</td>
-            <td><a href="/members/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -278,8 +254,6 @@
             <th>Registration Date</th>
             <th>Registration End</th>
             <th>Subscription Type</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -291,8 +265,6 @@
             <td>{{ entry.registration_date }}</td>
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
-            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -314,8 +286,6 @@
             <th>Registration End</th>
             <th>Subscription Type</th>
             <th>Pending Month</th>
-            <th>Edit</th>
-            <th>Delete Notification</th>
           </tr>
         </thead>
         <tbody>
@@ -328,8 +298,6 @@
             <td>{{ entry.registration_upto }}</td>
             <td>{{ entry.get_subscription_type_display }}</td>
             <td>{{ entry.registration_upto|get_remaining_months }}</td>
-            <td><a href="/trainers/update/{{ entry.id }}/"><button class="btn btn-success">Edit</button></a></td>
-            <td><a href="/notifications/delete/{{ entry.id }}/"><button class="btn btn-danger">Delete</button></a></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -337,7 +305,6 @@
     {% else %}
       <div class="alert alert-warning text-center">No Notifications</div>
     {% endif %}
-
   </div>
 </div>
 {% endblock %}

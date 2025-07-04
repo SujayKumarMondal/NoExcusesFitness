@@ -10,16 +10,24 @@ def notifications(request):
     now = datetime.datetime.now()
     two_days_later = datetime.date.today() + datetime.timedelta(days=2)
 
-    # Members
+    # ----------- MEMBERS ------------
+    morning_members_today = Member.objects.filter(
+        registration_upto__gte=now,
+        registration_upto__lte=two_days_later,
+        notification=1,
+        batch='morning'
+    ).exclude(stop=1).order_by('first_name')
+
     morning_members_before = Member.objects.filter(
         Q(registration_upto__lte=now, notification=1, batch='morning') |
         Q(fee_status='pending', notification=1, batch='morning')
     ).exclude(stop=1).order_by('first_name')
 
-    morning_members_today = Member.objects.filter(
+    evening_members_today = Member.objects.filter(
         registration_upto__gte=now,
         registration_upto__lte=two_days_later,
-        notification=1, batch='morning'
+        notification=1,
+        batch='evening'
     ).exclude(stop=1).order_by('first_name')
 
     evening_members_before = Member.objects.filter(
@@ -27,22 +35,24 @@ def notifications(request):
         Q(fee_status='pending', notification=1, batch='evening')
     ).exclude(stop=1).order_by('first_name')
 
-    evening_members_today = Member.objects.filter(
+    # ----------- TRAINERS ------------
+    morning_trainers_today = Trainer.objects.filter(
         registration_upto__gte=now,
         registration_upto__lte=two_days_later,
-        notification=1, batch='evening'
+        notification=1,
+        batch='morning'
     ).exclude(stop=1).order_by('first_name')
 
-    # Trainers
     morning_trainers_before = Trainer.objects.filter(
         Q(registration_upto__lte=now, notification=1, batch='morning') |
         Q(fee_status='unpaid', notification=1, batch='morning')
     ).exclude(stop=1).order_by('first_name')
 
-    morning_trainers_today = Trainer.objects.filter(
+    evening_trainers_today = Trainer.objects.filter(
         registration_upto__gte=now,
         registration_upto__lte=two_days_later,
-        notification=1, batch='morning'
+        notification=1,
+        batch='evening'
     ).exclude(stop=1).order_by('first_name')
 
     evening_trainers_before = Trainer.objects.filter(
@@ -50,36 +60,27 @@ def notifications(request):
         Q(fee_status='unpaid', notification=1, batch='evening')
     ).exclude(stop=1).order_by('first_name')
 
-    evening_trainers_today = Trainer.objects.filter(
-        registration_upto__gte=now,
-        registration_upto__lte=two_days_later,
-        notification=1, batch='evening'
-    ).exclude(stop=1).order_by('first_name')
-
     context = {
         'subs_end_today_count': get_notification_count(),
         'morning_members_today': morning_members_today,
-        'morning_trainers_today': morning_trainers_today,
         'morning_members_before': morning_members_before,
-        'morning_trainers_before': morning_trainers_before,
         'evening_members_today': evening_members_today,
-        'evening_trainers_today': evening_trainers_today,
         'evening_members_before': evening_members_before,
+        'morning_trainers_today': morning_trainers_today,
+        'morning_trainers_before': morning_trainers_before,
+        'evening_trainers_today': evening_trainers_today,
         'evening_trainers_before': evening_trainers_before,
     }
+
     return render(request, 'notifications.html', context)
 
 
 def notification_delete(request, id):
-    
-    # member = Member.objects.get(pk=id)
-        # post_save.disconnect(my_handler, sender=Member)
-        # member.notification = 0
-        # member.stop = 1
-        # member.save()
-        # post_save.connect(my_handler, sender=Member)
-    
+    """
+    Deletes a notification by disabling it for either a Member or a Trainer.
+    """
     try:
+        # Try member first
         member = Member.objects.get(pk=id)
         post_save.disconnect(my_handler, sender=Member)
         member.notification = 0
@@ -87,6 +88,7 @@ def notification_delete(request, id):
         member.save()
         post_save.connect(my_handler, sender=Member)
     except Member.DoesNotExist:
+        # If not a member, try trainer
         try:
             trainer = Trainer.objects.get(pk=id)
             post_save.disconnect(my_handler, sender=Trainer)
@@ -95,7 +97,6 @@ def notification_delete(request, id):
             trainer.save()
             post_save.connect(my_handler, sender=Trainer)
         except Trainer.DoesNotExist:
-            pass  # Or handle error
-        
+            pass  # Optional: log error or notify
 
     return redirect('/notifications/')
