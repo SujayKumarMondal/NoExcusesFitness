@@ -59,7 +59,7 @@
     <hr>
 
     <!-- Delete Button Form -->
-    <form method="POST" action="{% url 'delete_attendance' record.id %}">
+    <form method="POST" action="{% url 'delete_member_attendance' record.id %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Delete Attendance</button>
     </form>

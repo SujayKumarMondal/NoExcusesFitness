@@ -432,7 +432,7 @@ def edit_member_attendance(request, id):
     # Render the edit template with the form and record
     return render(request, 'edit_member_attendance.html', {'form': form, 'record': record})
 
-def delete_attendance(request, record_id):
+def delete_member_attendance(request, record_id):
     record = get_object_or_404(Attendance, id=record_id)
     record.delete()
     return redirect('attendance')

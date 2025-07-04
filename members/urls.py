@@ -27,5 +27,5 @@ urlpatterns = [
     path('attendance/', attendance_view, name='attendance'),
     path('', login_required(views.members), name='members'),
     path('attendance/edit/<int:id>/', views.edit_member_attendance, name='edit_member_attendance'),
-    path('attendance/delete/<int:record_id>/', views.delete_attendance, name='delete_attendance'),
+    path('attendance/delete/<int:record_id>/', views.delete_member_attendance, name='delete_member_attendance'),
 ]
